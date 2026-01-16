@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+
+    <!-- Optional: Tailwind CDN untuk demo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- API BASE CONFIG (PROD READY) -->
+    <script>
+      // Ganti saat deploy ke production
+      window.__API_BASE__ = "http://localhost:3000/api";
+    </script>
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <!-- ================= LOGIN PAGE ================= -->
+    <section
+      id="loginPage"
+      class="min-h-screen flex items-center justify-center"
+    >
+      <div class="bg-white p-6 rounded-xl shadow w-full max-w-sm">
+        <h1 class="text-lg font-bold mb-4 text-center">🔐 Admin Login</h1>
+
+        <input
+          id="username"
+          type="text"
+          placeholder="Username"
+          class="w-full border rounded px-3 py-2 mb-3"
+        />
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          class="w-full border rounded px-3 py-2 mb-4"
+        />
+
+        <p id="loginError" class="text-sm text-red-500 mb-3 hidden"></p>
+
+        <button
+          id="loginBtn"
+          class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700"
+        >
+          Login
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= DASHBOARD ================= -->
+    <section id="dashboard" class="hidden">
+      <header
+        class="bg-white shadow px-6 py-4 flex justify-between items-center"
+      >
+        <h2 class="font-bold">📊 Admin Dashboard</h2>
+        <button id="logoutBtn" class="text-red-600 text-sm hover:underline">
+          Logout
+        </button>
+      </header>
+
+      <main class="p-6">
+        <div class="overflow-x-auto">
+          <table class="w-full bg-white rounded shadow text-sm">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="p-2 text-left">Order ID</th>
+                <th class="p-2">Nomor</th>
+                <th class="p-2">Provider</th>
+                <th class="p-2">Produk</th>
+                <th class="p-2 text-right">Harga</th>
+                <th class="p-2 text-center">Status</th>
+                <th class="p-2">Waktu</th>
+              </tr>
+            </thead>
+            <tbody id="orderTable"></tbody>
+          </table>
+        </div>
+      </main>
+    </section>
+
+    <!-- ================= SCRIPT ================= -->
+    <script type="module" src="js/admin.js"></script>
+  </body>
+</html>

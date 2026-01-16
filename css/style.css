@@ -1,0 +1,249 @@
+/* =====================================================
+   MOBILE APP UI — TOKO PULSA
+   Polished Production-Ready UI
+   ===================================================== */
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #eef2f7, #e5eaf2);
+  color: #0f172a;
+}
+
+/* ================= APP WRAPPER ================= */
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 20px 12px 48px;
+}
+
+/* ================= MAIN CARD ================= */
+
+.container {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 20px 18px 28px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+/* ================= HEADER ================= */
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 8px 0 22px;
+}
+
+.title i {
+  color: #2563eb;
+}
+
+/* ================= SECTION ================= */
+
+.section {
+  margin-bottom: 22px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 14px;
+}
+
+/* ================= PRODUCT GRID ================= */
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.product-card {
+  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+  border-radius: 18px;
+  padding: 16px 10px;
+  border: 1.5px solid #e2e8f0;
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+.product-card.active {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  border-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+.product-card .nominal {
+  font-size: 17px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.product-card .price {
+  margin-top: 6px;
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.85;
+}
+
+/* ================= INPUT CARD ================= */
+
+.input-card {
+  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+  border-radius: 20px;
+  padding: 16px;
+  border: 1.5px solid #e2e8f0;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+  transition: border 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+/* ================= PROVIDER ================= */
+
+.input-card {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 14px;
+  border: 1.5px solid #e2e8f0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* 🔑 stabil spacing */
+}
+
+/* provider tetap punya tempat */
+.provider-box {
+  min-height: 34px; /* 🔑 kunci tinggi */
+  margin-top: 0;
+}
+
+.provider-box {
+  margin-top: 14px;
+  padding: 8px 14px; /* 🔑 lebih seimbang */
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, #5b21b6, #4c1d95);
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1; /* 🔑 optical vertical center */
+  text-align: center; /* 🔑 horizontal center */
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 34px; /* 🔑 stabil tinggi badge */
+
+  box-shadow: 0 10px 24px rgba(91, 33, 182, 0.35);
+}
+
+/* tampil otomatis jika ada teks */
+.provider-box:not(:empty) {
+  display: inline-flex;
+}
+
+/* ================= CTA ================= */
+
+button {
+  margin-top: 26px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 20px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+button.active {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ================= TOAST ================= */
+
+#toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+}
+
+.toast {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
+}
+
+.toast.success {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+.toast.error {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+.toast.info {
+  background: linear-gradient(135deg, #475569, #334155);
+}
