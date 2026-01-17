@@ -8,88 +8,65 @@ const orderBtn = document.getElementById("orderBtn");
 const phoneInput = document.getElementById("phoneInput");
 
 let cachedProducts = null;
+const CACHE_KEY = "products_cache_v1";
 
-/**
- * ===============================
- * UI STATE UPDATE
- * ===============================
- */
 function updateOrderButton() {
-  if (AppState.selectedProduct && AppState.phone) {
-    orderBtn.classList.add("active");
-    orderBtn.disabled = false;
-  } else {
-    orderBtn.classList.remove("active");
-    orderBtn.disabled = true;
-  }
+  orderBtn.disabled = !(AppState.selectedProduct && AppState.phone);
 }
 
-/**
- * ===============================
- * RENDER PRODUCTS (FAST)
- * ===============================
- */
 function renderProducts(products) {
   grid.innerHTML = "";
-
   const fragment = document.createDocumentFragment();
 
-  products.forEach((p) => {
+  products.forEach((p, i) => {
     const card = document.createElement("div");
     card.className = "product-card";
+    card.dataset.index = i;
 
-    card.innerHTML = `
-      <div class="nominal">${p.nominal}</div>
-      <div class="price">Rp ${p.price.toLocaleString("id-ID")}</div>
-    `;
+    const nominal = document.createElement("div");
+    nominal.className = "nominal";
+    nominal.textContent = p.nominal;
 
-    card.onclick = () => {
-      // Hapus active sebelumnya (lebih cepat dari querySelectorAll)
-      const active = grid.querySelector(".product-card.active");
-      if (active) active.classList.remove("active");
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = `Rp ${p.price.toLocaleString("id-ID")}`;
 
-      card.classList.add("active");
-      AppState.selectedProduct = p;
-      updateOrderButton();
-    };
-
+    card.append(nominal, price);
     fragment.appendChild(card);
   });
 
   grid.appendChild(fragment);
 }
 
-/**
- * ===============================
- * INIT (WITH CACHE)
- * ===============================
- */
-async function init() {
-  try {
-    if (cachedProducts) {
-      renderProducts(cachedProducts);
-      return;
-    }
+/** 🔥 EVENT DELEGATION */
+grid.addEventListener("click", (e) => {
+  const card = e.target.closest(".product-card");
+  if (!card) return;
 
-    const res = await fetchProducts();
-    cachedProducts = res.data;
-    renderProducts(res.data);
-  } catch (err) {
-    console.error("❌ Load products error:", err);
-    grid.innerHTML =
-      "<p class='text-center text-red-500'>Gagal memuat produk</p>";
-  }
-}
+  const active = grid.querySelector(".product-card.active");
+  if (active) active.classList.remove("active");
 
-/**
- * ===============================
- * EVENTS
- * ===============================
- */
+  card.classList.add("active");
+
+  AppState.selectedProduct = cachedProducts[card.dataset.index];
+  updateOrderButton();
+});
+
 phoneInput.addEventListener("input", updateOrderButton);
 
-// Default state
-orderBtn.disabled = true;
+async function init() {
+  const cached = sessionStorage.getItem(CACHE_KEY);
+  if (cached) {
+    cachedProducts = JSON.parse(cached);
+    renderProducts(cachedProducts);
+    return;
+  }
 
-// Start app
+  const res = await fetchProducts();
+  cachedProducts = res.data;
+  sessionStorage.setItem(CACHE_KEY, JSON.stringify(res.data));
+  renderProducts(res.data);
+}
+
+orderBtn.disabled = true;
 init();
