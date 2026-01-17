@@ -2,8 +2,8 @@ import { createOrder } from "./api.js";
 import { AppState } from "./state.js";
 
 const btn = document.getElementById("orderBtn");
-
 let isSubmitting = false;
+
 const safe = (v) => String(v).replace(/[<>]/g, "");
 
 btn.onclick = async () => {
@@ -26,9 +26,8 @@ btn.onclick = async () => {
 
     const o = res.data;
 
-    const message = `
+    const msg = `
 Halo Admin 👋
-
 🆔 ID: ${safe(o.orderCode)}
 📱 Nomor: ${safe(o.phone)}
 📡 Provider: ${safe(o.provider)}
@@ -37,7 +36,7 @@ Halo Admin 👋
 `.trim();
 
     window.open(
-      `https://wa.me/6282138051507?text=${encodeURIComponent(message)}`,
+      `https://wa.me/6282138051507?text=${encodeURIComponent(msg)}`,
       "_blank"
     );
 
