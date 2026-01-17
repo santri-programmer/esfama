@@ -36,16 +36,18 @@ btn.onclick = async () => {
     const order = res.data;
 
     const message = `
-Halo Admin 👋
+Halo Admin 👋  
+Saya ingin membeli pulsa dengan informasi berikut:  ✨
 
-🆔 Order ID: ${order.orderCode}
+🧾 *Detail Order*
+• 🆔 ID: ${order.orderCode}
+• 📱 Nomor: ${order.phone}
+• 📡 Provider: ${order.provider}
+• 💰 Produk: ${order.product}
+• 💵 Total: Rp ${Number(order.price).toLocaleString("id-ID")}
 
-📱 Nomor: ${order.phone}
-📡 Provider: ${order.provider}
-💰 Produk: ${order.product}
-💵 Total: Rp ${Number(order.price).toLocaleString("id-ID")}
-
-Mohon diproses 🙏
+Mohon bantu diproses ya 🙏  
+Terima kasih banyak 😊
 `.trim();
 
     // ⚡ buka WA segera
