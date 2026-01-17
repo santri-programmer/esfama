@@ -4,24 +4,30 @@ const phoneInput = document.getElementById("phoneInput");
 const providerInfo = document.getElementById("providerInfo");
 
 const PROVIDER_RULES = [
-  { name: "TELKOMSEL", regex: /^08(11|12|13|21|22|23|51)/ },
+  { name: "TELKOMSEL/By.U", regex: /^08(11|12|13|21|22|23|51)/ },
   { name: "XL", regex: /^08(17|18|19|59|77|78)/ },
   { name: "INDOSAT", regex: /^08(14|15|16|55|56|57|58)/ },
   { name: "THREE", regex: /^089/ },
 ];
 
+let debounceTimer;
+
 phoneInput.addEventListener("input", (e) => {
-  const value = e.target.value.trim();
+  clearTimeout(debounceTimer);
 
-  AppState.phone = value;
-  AppState.provider = null;
-  providerInfo.textContent = "";
+  debounceTimer = setTimeout(() => {
+    const value = e.target.value.trim();
 
-  for (const p of PROVIDER_RULES) {
-    if (p.regex.test(value)) {
-      AppState.provider = p.name;
-      providerInfo.textContent = `📡 Provider: ${p.name}`;
-      break;
+    AppState.phone = value;
+    AppState.provider = null;
+    providerInfo.textContent = "";
+
+    for (const p of PROVIDER_RULES) {
+      if (p.regex.test(value)) {
+        AppState.provider = p.name;
+        providerInfo.textContent = `📡 Provider: ${p.name}`;
+        break;
+      }
     }
-  }
+  }, 80);
 });
