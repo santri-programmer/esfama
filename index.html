@@ -5,7 +5,7 @@
     <title>Toko Pulsa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 🔐 BASIC CSP -->
+    <!-- 🔐 CSP AMAN (NO INLINE SCRIPT) -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
@@ -18,15 +18,6 @@
     />
 
     <link rel="stylesheet" href="css/style.css?v=1.0.1" />
-
-    <!-- 🔒 LOCK API BASE -->
-    <script>
-      Object.defineProperty(window, "__API_BASE__", {
-        value: "https://pulsa.pnakote.my.id/api",
-        writable: false,
-        configurable: false,
-      });
-    </script>
   </head>
 
   <body>
@@ -51,6 +42,6 @@
       </div>
     </div>
 
-    <script type="module" src="js/main.js?v=1.0.2"></script>
+    <script type="module" src="js/main.js?v=1.0.3"></script>
   </body>
 </html>
