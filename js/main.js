@@ -12,8 +12,12 @@ let cachedProducts = null;
 const CACHE_KEY = "products_cache_v1";
 
 function updateOrderButton() {
-  orderBtn.disabled = !(AppState.selectedProduct && AppState.phone);
+  const enabled = AppState.selectedProduct && AppState.phone;
+
+  orderBtn.disabled = !enabled;
+  orderBtn.classList.toggle("active", enabled);
 }
+
 
 function renderProducts(products) {
   grid.innerHTML = "";
