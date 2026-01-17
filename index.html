@@ -4,8 +4,31 @@
     <meta charset="UTF-8" />
     <title>Toko Pulsa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css?v=1.0.0" />
+
+    <!-- 🔐 BASIC CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        connect-src https://pulsa.pnakote.my.id;
+      "
+    />
+
+    <link rel="stylesheet" href="css/style.css?v=1.0.1" />
+
+    <!-- 🔒 LOCK API BASE -->
+    <script>
+      Object.defineProperty(window, "__API_BASE__", {
+        value: "https://pulsa.pnakote.my.id/api",
+        writable: false,
+        configurable: false,
+      });
+    </script>
   </head>
+
   <body>
     <div class="app">
       <div class="container">
@@ -24,14 +47,10 @@
           </div>
         </div>
 
-        <button id="orderBtn">Pesan Sekarang</button>
+        <button id="orderBtn" disabled>Pesan Sekarang</button>
       </div>
     </div>
 
-    <!-- STATE FIRST -->
-    <script>
-  window.__API_BASE__ = "https://pulsa.pnakote.my.id/api";
-    </script>
-    <script type="module" src="js/main.js?v=1.0.1"></script>
+    <script type="module" src="js/main.js?v=1.0.2"></script>
   </body>
 </html>
