@@ -1,5 +1,5 @@
 export const AppState = {
   selectedProduct: null,
-  phone: null,
+  phone: "",
   provider: null,
 };
