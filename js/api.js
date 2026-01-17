@@ -1,29 +1,16 @@
-/**
- * ===============================
- * API CONFIG
- * ===============================
- * Bisa di-set dari HTML sebelum script load:
- * window.__API_BASE__ = "https://api.domain.com/api"
- */
 if (!window.__API_BASE__) {
-  throw new Error("API_BASE is not defined. Set window.__API_BASE__ in HTML.");
+  throw new Error("API_BASE is not defined");
 }
 
 const API_BASE = window.__API_BASE__;
 
-/**
- * ===============================
- * HELPER — REQUEST
- * ===============================
- */
 async function request(path, options = {}) {
   const headers = {
     "Content-Type": "application/json",
     ...(options.headers || {}),
   };
 
-  // Auto attach admin token if exists
-  const adminToken = localStorage.getItem("admin_token");
+  const adminToken = sessionStorage.getItem("admin_token");
   if (adminToken) {
     headers.Authorization = `Bearer ${adminToken}`;
   }
@@ -47,34 +34,18 @@ async function request(path, options = {}) {
   return json;
 }
 
-/**
- * ===============================
- * PUBLIC API
- * ===============================
- */
-export function fetchProducts() {
-  return request("/product");
-}
+export const fetchProducts = () => request("/product");
 
-export function createOrder(payload) {
-  return request("/order", {
+export const createOrder = (payload) =>
+  request("/order", {
     method: "POST",
     body: JSON.stringify(payload),
   });
-}
 
-/**
- * ===============================
- * ADMIN API
- * ===============================
- */
-export function adminLogin(payload) {
-  return request("/admin/login", {
+export const adminLogin = (payload) =>
+  request("/admin/login", {
     method: "POST",
     body: JSON.stringify(payload),
   });
-}
 
-export function fetchAdminOrders() {
-  return request("/order/admin");
-}
+export const fetchAdminOrders = () => request("/order/admin");
