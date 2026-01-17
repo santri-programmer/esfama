@@ -27,13 +27,24 @@ btn.onclick = async () => {
     const o = res.data;
 
     const msg = `
-Halo Admin 👋
-🆔 ID: ${safe(o.orderCode)}
-📱 Nomor: ${safe(o.phone)}
-📡 Provider: ${safe(o.provider)}
-💰 Produk: ${safe(o.product)}
-💵 Total: Rp ${Number(o.price).toLocaleString("id-ID")}
+Halo Admin 👋😊
+
+Saya ingin melakukan pembelian pulsa dengan detail berikut ya:
+
+━━━━━━━━━━━━━━
+🧾 *Detail Pesanan*
+🆔 ID Pesanan : ${safe(o.orderCode)}
+
+📱 Nomor      : ${safe(o.phone)}
+📡 Provider   : ${safe(o.provider)}
+💰 Produk     : ${safe(o.product)}
+💵 Total Bayar: Rp ${Number(o.price).toLocaleString("id-ID")}
+━━━━━━━━━━━━━━
+
+Mohon bantu diproses 🙏  
+Terima kasih banyak ya 😊
 `.trim();
+
 
     window.open(
       `https://wa.me/6282138051507?text=${encodeURIComponent(msg)}`,
