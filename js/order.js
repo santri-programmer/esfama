@@ -22,6 +22,11 @@ btn.onclick = async () => {
   btn.textContent = "Memproses...";
   btn.disabled = true;
 
+  // ⚡ feedback instan
+  setTimeout(() => {
+    btn.textContent = "Menghubungi WhatsApp...";
+  }, 100);
+
   try {
     const res = await createOrder({
       productId: AppState.selectedProduct.id,
@@ -43,12 +48,12 @@ Halo Admin 👋
 Mohon diproses 🙏
 `.trim();
 
+    // ⚡ buka WA segera
     window.open(
       `https://wa.me/6282138051507?text=${encodeURIComponent(message)}`,
       "_blank"
     );
 
-    // Reset state (optional UX)
     AppState.selectedProduct = null;
     btn.textContent = "Pesan Sekarang";
   } catch (err) {
@@ -59,3 +64,4 @@ Mohon diproses 🙏
     btn.disabled = false;
   }
 };
+
