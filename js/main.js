@@ -1,3 +1,4 @@
+import "./config.js"; // ⬅️ WAJIB PALING ATAS
 import { fetchProducts } from "./api.js";
 import { AppState } from "./state.js";
 import "./provider.js";
@@ -38,7 +39,6 @@ function renderProducts(products) {
   grid.appendChild(fragment);
 }
 
-/** 🔥 EVENT DELEGATION */
 grid.addEventListener("click", (e) => {
   const card = e.target.closest(".product-card");
   if (!card) return;
@@ -47,7 +47,6 @@ grid.addEventListener("click", (e) => {
   if (active) active.classList.remove("active");
 
   card.classList.add("active");
-
   AppState.selectedProduct = cachedProducts[card.dataset.index];
   updateOrderButton();
 });
