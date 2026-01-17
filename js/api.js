@@ -5,9 +5,11 @@
  * Bisa di-set dari HTML sebelum script load:
  * window.__API_BASE__ = "https://api.domain.com/api"
  */
-const API_BASE =
-  window.__API_BASE__ ||
-  `${window.location.protocol}//${window.location.hostname}:3000/api`;
+if (!window.__API_BASE__) {
+  throw new Error("API_BASE is not defined. Set window.__API_BASE__ in HTML.");
+}
+
+const API_BASE = window.__API_BASE__;
 
 /**
  * ===============================
