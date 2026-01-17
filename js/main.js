@@ -7,6 +7,8 @@ const grid = document.getElementById("productGrid");
 const orderBtn = document.getElementById("orderBtn");
 const phoneInput = document.getElementById("phoneInput");
 
+let cachedProducts = null;
+
 /**
  * ===============================
  * UI STATE UPDATE
@@ -24,7 +26,7 @@ function updateOrderButton() {
 
 /**
  * ===============================
- * RENDER PRODUCTS
+ * RENDER PRODUCTS (FAST)
  * ===============================
  */
 function renderProducts(products) {
@@ -42,7 +44,7 @@ function renderProducts(products) {
     `;
 
     card.onclick = () => {
-      // HAPUS querySelectorAll mahal
+      // Hapus active sebelumnya (lebih cepat dari querySelectorAll)
       const active = grid.querySelector(".product-card.active");
       if (active) active.classList.remove("active");
 
@@ -57,25 +59,37 @@ function renderProducts(products) {
   grid.appendChild(fragment);
 }
 
-
 /**
  * ===============================
- * INIT
+ * INIT (WITH CACHE)
  * ===============================
  */
 async function init() {
   try {
+    if (cachedProducts) {
+      renderProducts(cachedProducts);
+      return;
+    }
+
     const res = await fetchProducts();
+    cachedProducts = res.data;
     renderProducts(res.data);
   } catch (err) {
+    console.error("❌ Load products error:", err);
     grid.innerHTML =
       "<p class='text-center text-red-500'>Gagal memuat produk</p>";
   }
 }
 
+/**
+ * ===============================
+ * EVENTS
+ * ===============================
+ */
 phoneInput.addEventListener("input", updateOrderButton);
 
-// Disable button by default
+// Default state
 orderBtn.disabled = true;
 
+// Start app
 init();
