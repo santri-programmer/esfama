@@ -30,6 +30,8 @@ function updateOrderButton() {
 function renderProducts(products) {
   grid.innerHTML = "";
 
+  const fragment = document.createDocumentFragment();
+
   products.forEach((p) => {
     const card = document.createElement("div");
     card.className = "product-card";
@@ -40,18 +42,21 @@ function renderProducts(products) {
     `;
 
     card.onclick = () => {
-      document
-        .querySelectorAll(".product-card")
-        .forEach((c) => c.classList.remove("active"));
+      // HAPUS querySelectorAll mahal
+      const active = grid.querySelector(".product-card.active");
+      if (active) active.classList.remove("active");
 
       card.classList.add("active");
       AppState.selectedProduct = p;
       updateOrderButton();
     };
 
-    grid.appendChild(card);
+    fragment.appendChild(card);
   });
+
+  grid.appendChild(fragment);
 }
+
 
 /**
  * ===============================
