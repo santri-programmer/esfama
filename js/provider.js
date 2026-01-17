@@ -10,12 +10,12 @@ const PROVIDER_RULES = [
   { name: "THREE", regex: /^089/ },
 ];
 
-let debounceTimer;
+let t;
 
 phoneInput.addEventListener("input", (e) => {
-  clearTimeout(debounceTimer);
+  clearTimeout(t);
 
-  debounceTimer = setTimeout(() => {
+  t = setTimeout(() => {
     const value = e.target.value.trim();
 
     AppState.phone = value;
