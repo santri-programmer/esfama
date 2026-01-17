@@ -44,7 +44,7 @@ Mohon diproses 🙏
 `.trim();
 
     window.open(
-      `https://wa.me/628123456789?text=${encodeURIComponent(message)}`,
+      `https://wa.me/6282138051507?text=${encodeURIComponent(message)}`,
       "_blank"
     );
 
