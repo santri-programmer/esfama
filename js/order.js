@@ -4,12 +4,8 @@ import { AppState } from "./state.js";
 const btn = document.getElementById("orderBtn");
 
 let isSubmitting = false;
+const safe = (v) => String(v).replace(/[<>]/g, "");
 
-/**
- * ===============================
- * ORDER SUBMIT
- * ===============================
- */
 btn.onclick = async () => {
   if (isSubmitting) return;
 
@@ -19,13 +15,8 @@ btn.onclick = async () => {
   }
 
   isSubmitting = true;
-  btn.textContent = "Memproses...";
   btn.disabled = true;
-
-  // ⚡ feedback instan
-  setTimeout(() => {
-    btn.textContent = "Menghubungi WhatsApp...";
-  }, 100);
+  btn.textContent = "Memproses...";
 
   try {
     const res = await createOrder({
@@ -33,37 +24,29 @@ btn.onclick = async () => {
       phone: AppState.phone,
     });
 
-    const order = res.data;
+    const o = res.data;
 
     const message = `
-Halo Admin 👋  
-Saya ingin membeli pulsa dengan informasi berikut:  ✨
+Halo Admin 👋
 
-🧾 *Detail Order*
-• 🆔 ID: ${order.orderCode}
-• 📱 Nomor: ${order.phone}
-• 📡 Provider: ${order.provider}
-• 💰 Produk: ${order.product}
-• 💵 Total: Rp ${Number(order.price).toLocaleString("id-ID")}
-
-Mohon bantu diproses ya 🙏  
-Terima kasih banyak 😊
+🆔 ID: ${safe(o.orderCode)}
+📱 Nomor: ${safe(o.phone)}
+📡 Provider: ${safe(o.provider)}
+💰 Produk: ${safe(o.product)}
+💵 Total: Rp ${Number(o.price).toLocaleString("id-ID")}
 `.trim();
 
-    // ⚡ buka WA segera
     window.open(
       `https://wa.me/6282138051507?text=${encodeURIComponent(message)}`,
       "_blank"
     );
 
     AppState.selectedProduct = null;
-    btn.textContent = "Pesan Sekarang";
   } catch (err) {
     alert(err.message || "Gagal membuat order");
-    btn.textContent = "Pesan Sekarang";
   } finally {
-    isSubmitting = false;
+    btn.textContent = "Pesan Sekarang";
     btn.disabled = false;
+    isSubmitting = false;
   }
 };
-
